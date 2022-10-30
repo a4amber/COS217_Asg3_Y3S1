@@ -73,10 +73,10 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         assert(pvValue != NULL);
 
         /*return false if binding exists*/
-        struct Node *current = oSymtable->first;
+        struct Node *current = oSymTable->first;
         while (strcmp(current->key, pcKey) != 0) 
         {
-            current = current.next;
+            current = current->next;
             if (current = NULL)
             return FALSE;
         }
