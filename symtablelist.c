@@ -86,23 +86,10 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         /*return false if binding exists*/
         current = oSymTable->first;
 
-        if (current == NULL)
-        {
-        newNode = calloc(1, sizeof(struct Node));
-        if(newNode == NULL) return 0;
-        newNode->key = calloc(strlen(pcKey)+1, sizeof(char));
-        if(newNode == NULL) return 0;
-        strcpy(newNode->key, pcKey);
-        newNode->value = (void*) pvValue;
-        oSymTable->first = newNode;
-        oSymTable->length++;
-        return 1;
-        }
-
-        while (strcmp(current->key, pcKey) != 0) 
+        while (current == NULL) 
         {
             current = current->next;
-            if (current == NULL)
+            if (strcmp(current->key, pcKey) != 0)
             return 0;
         }
 
@@ -112,7 +99,10 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         if(newNode == NULL) return 0;
         strcpy(newNode->key, pcKey);
         newNode->value = (void*) pvValue;
+        if(oSymTable->first != NULL)
+        {
         oSymTable->first->next = oSymTable->first;
+        }
         oSymTable->first = newNode;
         oSymTable->length++;
         return 1;
