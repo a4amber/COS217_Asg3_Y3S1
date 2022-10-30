@@ -86,9 +86,8 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         /*return false if binding exists*/
         current = oSymTable->first;
 
-        while (current == NULL) 
+        while (current != NULL) 
         {
-            
             if (strcmp(current->key, pcKey) != 0)
             return 0;
             current = current->next;
