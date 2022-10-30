@@ -206,7 +206,7 @@ That is, the function must call (*pfApply)(pcKey, pvValue, pvExtra)
         while (current != NULL)
         {
             current = current->next;
-            (*pfApply) ((void*) current->key, (void*) pvExtra;
+            (*pfApply) ((void*) current->key, (void*) pvExtra);
         }
         
      }
