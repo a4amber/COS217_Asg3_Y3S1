@@ -88,14 +88,12 @@ that contains no bindings, or NULL if insufficient memory is available.*/
 
         if (current == NULL)
         {
-        
         newNode = calloc(1, sizeof(struct Node));
         if(newNode == NULL) return 0;
         newNode->key = calloc(strlen(pcKey)+1, sizeof(char));
         if(newNode == NULL) return 0;
         strcpy(newNode->key, pcKey);
         newNode->value = (void*) pvValue;
-        oSymTable->first->next = oSymTable->first;
         oSymTable->first = newNode;
         oSymTable->length++;
         return 1;
