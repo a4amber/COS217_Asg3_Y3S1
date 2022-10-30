@@ -126,7 +126,7 @@ Otherwise it must leave oSymTable unchanged and return NULL.*/
             return NULL;
         }
         old = current->value;
-        current->value = pvValue;
+        current->value = (void*) pvValue;
         return old;
      }
 
