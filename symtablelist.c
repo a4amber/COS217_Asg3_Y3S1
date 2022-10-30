@@ -129,7 +129,7 @@ contains a binding whose key is pcKey, and 0 (FALSE) otherwise.*/
         assert(oSymTable != NULL);
         assert(*pcKey != NULL);
 
-        struct Node *current = oSymtable->first;
+        struct Node *current = oSymTable->first;
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current->next;
