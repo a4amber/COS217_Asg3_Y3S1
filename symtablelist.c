@@ -13,7 +13,7 @@
 
 
 /*representation of the Symbol Table object*/
-struct Node {const char* key; void * value; struct Node *next;};
+struct Node {char* key; void * value; struct Node *next;};
 struct SymTable {struct Node *first; size_t length;} ;
 
 /*----------------------------------------------*/
@@ -69,8 +69,8 @@ that contains no bindings, or NULL if insufficient memory is available.*/
   int SymTable_put(SymTable_T oSymTable,
      const char *pcKey, const void *pvValue)
      {
-        assert(*pcKey != NULL);
-        assert(*pvValue != NULL);
+        assert(pcKey != NULL);
+        assert(pvValue != NULL);
 
         /*return false if binding exists*/
         struct Node *current = oSymtable->first;
@@ -104,8 +104,8 @@ Otherwise it must leave oSymTable unchanged and return NULL.*/
   void *SymTable_replace(SymTable_T oSymTable,
      const char *pcKey, const void *pvValue) 
      {
-        assert(*pcKey != NULL);
-        assert(*pvValue != NULL);
+        assert(pcKey != NULL);
+        assert(pvValue != NULL);
 
         struct Node *current = oSymtable->first;
         while (strcmp(current->key, pcKey) != 0) 
@@ -127,7 +127,7 @@ contains a binding whose key is pcKey, and 0 (FALSE) otherwise.*/
   int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
   {
         assert(oSymTable != NULL);
-        assert(*pcKey != NULL);
+        assert(pcKey != NULL);
 
         struct Node *current = oSymTable->first;
         while (strcmp(current->key, pcKey) != 0) 
@@ -147,7 +147,7 @@ contains a binding whose key is pcKey, and 0 (FALSE) otherwise.*/
   void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
   {
         assert(oSymTable != NULL);
-        assert(*pcKey != NULL);
+        assert(pcKey != NULL);
 
         struct Node *current = oSymtable->first;
         while (strcmp(current->key, pcKey) != 0) 
@@ -170,7 +170,7 @@ Otherwise the function must not change oSymTable and return NULL.*/
   void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
   {
         assert(oSymTable != NULL);
-        assert(*pcKey != NULL);
+        assert(pcKey != NULL);
 
         struct Node *current = oSymTable->first;
         while (strcmp(current->key, pcKey) != 0) 
