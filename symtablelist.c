@@ -94,7 +94,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         newNode->key = calloc(strlen(pcKey)+1, sizeof(char));
         if(newNode == NULL) return 0;
         strcpy(newNode->key, pcKey);
-        newNode->value = pvValue;
+        newNode->value = (void*) pvValue;
         oSymTable->first->next = oSymTable->first;
         oSymTable->first = newNode;
         oSymTable->length++;
