@@ -75,11 +75,14 @@ that contains no bindings, or NULL if insufficient memory is available.*/
   int SymTable_put(SymTable_T oSymTable,
      const char *pcKey, const void *pvValue)
      {
+        struct Node *current;
+        struct Node* newNode;
+
         assert(pcKey != NULL);
         assert(pvValue != NULL);
 
         /*return false if binding exists*/
-        struct Node *current = oSymTable->first;
+        current = oSymTable->first;
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current->next;
@@ -87,7 +90,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
             return 0;
         }
 
-        struct Node* newNode = calloc(1, sizeof(struct Node));
+        snewNode = calloc(1, sizeof(struct Node));
         if(newNode == NULL) return 0;
         newNode->key = calloc(strlen(pcKey)+1, sizeof(char));
         if(newNode == NULL) return 0;
@@ -110,17 +113,20 @@ Otherwise it must leave oSymTable unchanged and return NULL.*/
   void *SymTable_replace(SymTable_T oSymTable,
      const char *pcKey, const void *pvValue) 
      {
+        struct Node *current;
+        struct Node* old;
+
         assert(pcKey != NULL);
         assert(pvValue != NULL);
 
-        struct Node *current = oSymTable->first;
+        current = oSymTable->first;
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current->next;
             if (current == NULL)
             return NULL;
         }
-        struct Node* old = current->value;
+        old = current->value;
         current->value = pvValue;
         return old;
      }
@@ -131,11 +137,13 @@ Otherwise it must leave oSymTable unchanged and return NULL.*/
 contains a binding whose key is pcKey, and 0 (FALSE) otherwise.*/
 
   int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
-  {
+  { 
+        struct Node *current;
+
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
 
-        struct Node *current = oSymTable->first;
+        current = oSymTable->first;
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current->next;
@@ -152,10 +160,12 @@ contains a binding whose key is pcKey, and 0 (FALSE) otherwise.*/
 
   void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
   {
+        struct Node *current;
+
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
 
-        struct Node *current = oSymTable->first;
+        current = oSymTable->first;
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current->next;
@@ -175,17 +185,20 @@ Otherwise the function must not change oSymTable and return NULL.*/
 
   void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
   {
+        struct Node *current;
+        struct Node * remove;
+
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
 
-        struct Node *current = oSymTable->first;
+        current = oSymTable->first;
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current->next;
             if (current == NULL)
             return NULL;
         }
-        struct Node * remove = current;
+        remove = current;
         current = current->next;
         free(remove->key);
         const void* removedVal = remove->value; 
@@ -205,10 +218,12 @@ That is, the function must call (*pfApply)(pcKey, pvValue, pvExtra)
      void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),
      const void *pvExtra)
      {
+        struct Node *current;
+
         assert(oSymTable != NULL);
         assert(pfApply != NULL);
 
-        struct Node *current = oSymTable->first;
+        current = oSymTable->first;
         while (current != NULL)
         {
             current = current->next;
