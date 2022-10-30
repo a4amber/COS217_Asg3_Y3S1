@@ -175,12 +175,12 @@ Otherwise the function must not change oSymTable and return NULL.*/
         struct Node *current = oSymTable->first;
         while (strcmp(current->key, pcKey) != 0) 
         {
-            current = current.next;
-            if (current = NULL)
+            current = current->next;
+            if (current == NULL)
             return NULL;
         }
         struct Node * remove = current;
-        current = current.next
+        current = current.next;
         free(remove->key);
         void* removedVal = remove->value;
         free(remove);
