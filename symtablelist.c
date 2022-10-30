@@ -88,9 +88,10 @@ that contains no bindings, or NULL if insufficient memory is available.*/
 
         while (current == NULL) 
         {
-            current = current->next;
+            
             if (strcmp(current->key, pcKey) != 0)
             return 0;
+            current = current->next;
         }
 
         newNode = calloc(1, sizeof(struct Node));
