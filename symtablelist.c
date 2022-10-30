@@ -5,7 +5,6 @@
 #include "symtable.h"
 #include <assert.h>
 #include <stddef.h>
-#include <stdstr.h>
 #include <stdlib.h>
 
 /*----------------------------------------------*/
