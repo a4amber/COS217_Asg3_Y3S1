@@ -19,9 +19,9 @@ struct SymTable_T {struct Node *first; size_t length;} ;
 /*The SymTable_new() function returns a new SymTable object 
 that contains no bindings, or NULL if insufficient memory is available.*/  
 
-  struct SymTable_T SymTable_new(void)
+  SymTable_T SymTable_new(void)
   {
-    struct SymTable_T *st;
+    SymTable_T *st;
     st = calloc(1, sizeof(*st)); 
     if (st == NULL) return NULL;
   }
@@ -30,14 +30,14 @@ that contains no bindings, or NULL if insufficient memory is available.*/
 
 /*SymTable_free frees all memory occupied by oSymTable*/
 
-  void SymTable_free(struct SymTable_T oSymTable)
+  void SymTable_free(SymTable_T oSymTable)
   {
   assert(oSymTable != NULL); 
 
     /*free front to back key by node*/
   while (oSymTable->first != NULL)
   {
-  struct Node* toFree = oSymTable->first ; 
+  Node* toFree = oSymTable->first ; 
   oSymTable->first = oSymTable->next;
   free(toFree->key);
   free(toFree);
@@ -80,7 +80,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
             return FALSE;
         }
 
-        struct Node* newNode = calloc(1, sizeof(struct Node));
+        Node* newNode = calloc(1, sizeof( Node));
         if(newNode == NULL) return FALSE;
         newNode->key = calloc(strlen(pcKey)+1, sizeof(char));
         if(newNode == NULL) return FALSE;
@@ -106,14 +106,14 @@ Otherwise it must leave oSymTable unchanged and return NULL.*/
         assert(*pcKey != NULL);
         assert(*pvValue != NULL);
 
-        struct Node *current = oSymtable->first;
+        Node *current = oSymtable->first;
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current->next;
             if (current = NULL)
             return NULL;
         }
-        struct Node* old = current->value;
+        Node* old = current->value;
         current->value = pvValue;
         return old;
      }
@@ -128,7 +128,7 @@ contains a binding whose key is pcKey, and 0 (FALSE) otherwise.*/
         assert(oSymTable != NULL);
         assert(*pcKey != NULL);
 
-        struct Node *current = oSymTable->first;
+        Node *current = oSymTable->first;
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current->next;
@@ -148,7 +148,7 @@ contains a binding whose key is pcKey, and 0 (FALSE) otherwise.*/
         assert(oSymTable != NULL);
         assert(*pcKey != NULL);
 
-        struct Node *current = oSymtable->first;
+        Node *current = oSymtable->first;
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current.next;
@@ -171,14 +171,14 @@ Otherwise the function must not change oSymTable and return NULL.*/
         assert(oSymTable != NULL);
         assert(*pcKey != NULL);
 
-        struct Node *current = oSymtable->first;
+        Node *current = oSymtable->first;
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current.next;
             if (current = NULL)
             return NULL;
         }
-        struct Node * remove = current;
+        Node * remove = current;
         current = current.next
         free(remove->key);
         void* removedVal = remove->value;
@@ -201,7 +201,7 @@ That is, the function must call (*pfApply)(pcKey, pvValue, pvExtra)
         assert(oSymTable != NULL);
         assert(pfApply != NULL);
 
-        struct Node *current = oSymtable->first;
+        Node *current = oSymtable->first;
         while (current != NULL)
         {
             current = current->next;
