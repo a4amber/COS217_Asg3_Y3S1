@@ -24,10 +24,12 @@ that contains no bindings, or NULL if insufficient memory is available.*/
 
   SymTable_T SymTable_new(void)
   {
-    SymTable_T *st;
-    st = calloc(1, sizeof(*st)); 
+    SymTable_T st;
+    st = (SymTable_T) malloc(sizeof(struct SymTable)); 
     if (st == NULL) return NULL;
-    return *st;
+    st->first = NULL;
+    st-> length = 0;
+    return st;
   }
 
 /*----------------------------------------------*/
