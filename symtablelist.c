@@ -180,7 +180,7 @@ Otherwise the function must not change oSymTable and return NULL.*/
             return NULL;
         }
         struct Node * remove = current;
-        current = current.next;
+        current = current->next;
         free(remove->key);
         void* removedVal = remove->value;
         free(remove);
@@ -202,11 +202,11 @@ That is, the function must call (*pfApply)(pcKey, pvValue, pvExtra)
         assert(oSymTable != NULL);
         assert(pfApply != NULL);
 
-        struct Node *current = oSymtable->first;
+        struct Node *current = oSymTable->first;
         while (current != NULL)
         {
             current = current->next;
-            (*pfApply) ((void*) current->key, (void*) pvExtra);
+            (*pfApply) ((void*) current->key, (void*) current->value, (void*) pvExtra);
         }
         
      }
