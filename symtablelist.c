@@ -6,6 +6,7 @@
 #include <assert.h>
 #include <stddef.h>
 #include <str.h>
+#include <stdlib.h>
 
 /*----------------------------------------------*/
 
