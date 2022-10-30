@@ -78,7 +78,8 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         struct Node* newNode;
 
         assert(pcKey != NULL);
-        assert(pvValue != NULL);
+        assert(oSymTable!= NULL);
+        
 
         /*return false if binding exists*/
         current = oSymTable->first;
@@ -129,7 +130,8 @@ Otherwise it must leave oSymTable unchanged and return NULL.*/
         current->value = (void*) pvValue;
         return old;
      }
-
+//gdb - cammand where (line number)
+// 
 /*----------------------------------------------*/
 
 /*SymTable_contains must return 1 (TRUE) if oSymTable 
