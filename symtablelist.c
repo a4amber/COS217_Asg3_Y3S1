@@ -13,7 +13,7 @@
 
 
 /*representation of the Symbol Table object*/
-struct Node {char* key; const void * value; struct Node *next;};
+struct Node {char* key; const void * value; struct Node *next;}; //CONST VALUE
 struct SymTable {struct Node *first; size_t length;} ;
 
 /*----------------------------------------------*/
@@ -185,7 +185,7 @@ Otherwise the function must not change oSymTable and return NULL.*/
         struct Node * remove = current;
         current = current->next;
         free(remove->key);
-        void* removedVal = remove->value;
+        const void* removedVal = remove->value; 
         free(remove);
         oSymTable->length--;
         return removedVal;
