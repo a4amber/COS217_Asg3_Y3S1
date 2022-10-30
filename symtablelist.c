@@ -67,6 +67,8 @@ that contains no bindings, or NULL if insufficient memory is available.*/
  and return 0 (FALSE). If insufficient memory is available,
   then the function must leave oSymTable unchanged and return 0 (FALSE).*/
 
+
+
   int SymTable_put(SymTable_T oSymTable,
      const char *pcKey, const void *pvValue)
      {
@@ -83,9 +85,9 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         }
 
         struct Node* newNode = calloc(1, sizeof(struct Node));
-        if(newNode == NULL) return FALSE;
+        if(newNode == NULL) return 0;
         newNode->key = calloc(strlen(pcKey)+1, sizeof(char));
-        if(newNode == NULL) return FALSE;
+        if(newNode == NULL) return 0;
         strcpy(pcKey, newNode->key);
         newNode->value = pvValue;
         oSymTable->first->next = oSymTable->first;
