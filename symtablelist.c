@@ -152,8 +152,8 @@ contains a binding whose key is pcKey, and 0 (FALSE) otherwise.*/
         struct Node *current = oSymtable->first;
         while (strcmp(current->key, pcKey) != 0) 
         {
-            current = current.next;
-            if (current = NULL)
+            current = current->next;
+            if (current == NULL)
             return NULL;
         }
         return current->value;
@@ -172,7 +172,7 @@ Otherwise the function must not change oSymTable and return NULL.*/
         assert(oSymTable != NULL);
         assert(*pcKey != NULL);
 
-        struct Node *current = oSymtable->first;
+        struct Node *current = oSymTable->first;
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current.next;
