@@ -26,6 +26,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
     SymTable_T *st;
     st = calloc(1, sizeof(*st)); 
     if (st == NULL) return NULL;
+    return *st;
   }
 
 /*----------------------------------------------*/
