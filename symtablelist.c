@@ -130,8 +130,7 @@ Otherwise it must leave oSymTable unchanged and return NULL.*/
         current->value = (void*) pvValue;
         return old;
      }
-//gdb - cammand where (line number)
-// 
+
 /*----------------------------------------------*/
 
 /*SymTable_contains must return 1 (TRUE) if oSymTable 
