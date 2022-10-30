@@ -11,8 +11,8 @@
 
 
 /*representation of the Symbol Table object*/
-struct Node {const char* key; void * value; struct Node *next;}
-struct SymTable_T {struct Node *first; size_t length;} 
+struct Node {const char* key; void * value; struct Node *next;};
+struct SymTable_T {struct Node *first; size_t length;} ;
 
 /*----------------------------------------------*/
 
