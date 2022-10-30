@@ -77,8 +77,8 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current->next;
-            if (current = NULL)
-            return FALSE;
+            if (current == NULL)
+            return 0;
         }
 
         struct Node* newNode = calloc(1, sizeof(struct Node));
@@ -90,7 +90,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         oSymTable->next = oSymTable->first;
         oSymTable->first = newNode;
         oSymTable->length++;
-        return TRUE;
+        return 1;
 
      }
 
