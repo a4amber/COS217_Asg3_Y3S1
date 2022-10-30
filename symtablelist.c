@@ -16,6 +16,8 @@
 struct Node {char* key; const void * value; struct Node *next;}; //CONST VALUE
 struct SymTable {struct Node *first; size_t length;} ;
 
+//  TYPEDEF NODE
+
 /*----------------------------------------------*/
 
 /*The SymTable_new() function returns a new SymTable object 
@@ -35,12 +37,13 @@ that contains no bindings, or NULL if insufficient memory is available.*/
 
   void SymTable_free(SymTable_T oSymTable)
   {
-  assert(oSymTable != NULL); 
+    struct Node* toFree;
+    assert(oSymTable != NULL); 
 
     /*free front to back key by node*/
   while (oSymTable->first != NULL)
   {
-  struct Node* toFree = oSymTable->first ; 
+  toFree = oSymTable->first ; 
   oSymTable->first = oSymTable->first->next;
   free(toFree->key);
   free(toFree);
