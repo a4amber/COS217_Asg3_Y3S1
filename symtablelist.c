@@ -90,7 +90,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
             return 0;
         }
 
-        snewNode = calloc(1, sizeof(struct Node));
+        newNode = calloc(1, sizeof(struct Node));
         if(newNode == NULL) return 0;
         newNode->key = calloc(strlen(pcKey)+1, sizeof(char));
         if(newNode == NULL) return 0;
