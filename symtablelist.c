@@ -4,7 +4,8 @@
 /*--------------------------------------------------------------------*/
 #include "symtable.h"
 #include <assert.h>
-#include <stddef.h>'
+#include <stddef.h>
+#include <str.h>
 
 /*----------------------------------------------*/
 
