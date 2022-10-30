@@ -187,6 +187,7 @@ Otherwise the function must not change oSymTable and return NULL.*/
   {
         struct Node *current;
         struct Node * remove;
+        void* removedVal;
 
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
@@ -201,7 +202,7 @@ Otherwise the function must not change oSymTable and return NULL.*/
         remove = current;
         current = current->next;
         free(remove->key);
-        void* removedVal = remove->value; 
+        removedVal = remove->value; 
         free(remove);
         oSymTable->length--;
         return removedVal;
