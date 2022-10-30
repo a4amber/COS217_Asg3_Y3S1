@@ -135,9 +135,9 @@ contains a binding whose key is pcKey, and 0 (FALSE) otherwise.*/
         {
             current = current->next;
             if (current = NULL)
-            return FALSE;
+            return 0;
         }
-        return TRUE;
+        return 1;
   }
 
 /*----------------------------------------------*/
