@@ -42,7 +42,6 @@ that contains no bindings, or NULL if insufficient memory is available.*/
   free(toFree->key);
   free(toFree);
   }
-  free(oSymTable->list); 
   free(oSymTable);
   }
 
