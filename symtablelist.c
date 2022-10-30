@@ -86,9 +86,9 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         if(newNode == NULL) return FALSE;
         newNode->key = calloc(strlen(pcKey)+1, sizeof(char));
         if(newNode == NULL) return FALSE;
-        strcpy(source pcKey, newNode->key);
+        strcpy(pcKey, newNode->key);
         newNode->value = pvValue;
-        oSymTable->next = oSymTable->first;
+        oSymTable->first->next = oSymTable->first;
         oSymTable->first = newNode;
         oSymTable->length++;
         return 1;
@@ -108,11 +108,11 @@ Otherwise it must leave oSymTable unchanged and return NULL.*/
         assert(pcKey != NULL);
         assert(pvValue != NULL);
 
-        struct Node *current = oSymtable->first;
+        struct Node *current = oSymTable->first;
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current->next;
-            if (current = NULL)
+            if (current == NULL)
             return NULL;
         }
         struct Node* old = current->value;
@@ -134,7 +134,7 @@ contains a binding whose key is pcKey, and 0 (FALSE) otherwise.*/
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current->next;
-            if (current = NULL)
+            if (current == NULL)
             return 0;
         }
         return 1;
@@ -150,7 +150,7 @@ contains a binding whose key is pcKey, and 0 (FALSE) otherwise.*/
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
 
-        struct Node *current = oSymtable->first;
+        struct Node *current = oSymTable->first;
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current->next;
