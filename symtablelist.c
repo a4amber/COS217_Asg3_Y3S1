@@ -16,7 +16,6 @@
 struct Node {char* key; void * value; struct Node *next;}; 
 struct SymTable {struct Node *first; size_t length;} ;
 
-//  TYPEDEF NODE
 
 /*----------------------------------------------*/
 
