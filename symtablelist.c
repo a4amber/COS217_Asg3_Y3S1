@@ -178,7 +178,6 @@ contains a binding whose key is pcKey, and 0 (FALSE) otherwise.*/
 
         current = oSymTable->first;
         
-        current = oSymTable->first;
         if (current == NULL) return 0;
 
         while (strcmp(current->key, pcKey) != 0) 
@@ -209,6 +208,8 @@ Otherwise the function must not change oSymTable and return NULL.*/
         assert(pcKey != NULL);
 
         current = oSymTable->first;
+        if (current == NULL) return 0;
+
         while (strcmp(current->key, pcKey) != 0) 
         {
             prior = current;
