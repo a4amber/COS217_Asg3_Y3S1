@@ -154,7 +154,7 @@ contains a binding whose key is pcKey, and 0 (FALSE) otherwise.*/
 
         current = oSymTable->first;
         if (current == NULL) return 0;
-        
+
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current->next;
@@ -177,6 +177,10 @@ contains a binding whose key is pcKey, and 0 (FALSE) otherwise.*/
         assert(pcKey != NULL);
 
         current = oSymTable->first;
+        
+        current = oSymTable->first;
+        if (current == NULL) return 0;
+
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current->next;
