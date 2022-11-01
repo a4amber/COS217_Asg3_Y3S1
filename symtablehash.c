@@ -19,7 +19,8 @@ struct Node {
     /*value provided by client*/
      void * value;
      /*next node in linked list implementation*/
-     struct Node *next;}; 
+     struct Node **next;
+     }; 
 
 /*a represenation of the Symbol Table object*/
 struct SymTable {
