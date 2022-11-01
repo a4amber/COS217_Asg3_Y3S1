@@ -74,7 +74,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
   void SymTable_free(SymTable_T oSymTable)
   {
     struct Node* toFree;
-    void* current;
+    struct Node* current;
     
     size_t elementsProc;
     size_t i;
@@ -92,14 +92,13 @@ that contains no bindings, or NULL if insufficient memory is available.*/
             }
 
             toFree = *current;
-            current = current->next;
+            oSymTable->hash[i] current->next;
             free(toFree->key);
             free(toFree);
             elementsProc++;
 
-            if(current == NULL)
+            if(hash[i] == NULL)
             i++;
-            current = oSymTable->hash[i];
         }
 
   free(oSymTable->hash);
