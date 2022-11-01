@@ -12,8 +12,9 @@
 /*----------------------------------------------*/
 
 
-/*representation of the Symbol Table object*/
+/*representation of the nodes used to implement symbol table*/
 struct Node {char* key; void * value; struct Node *next;}; 
+/*a represenation of the Symbol Table object*/
 struct SymTable {struct Node *first; size_t length;} ;
 
 
@@ -24,12 +25,12 @@ that contains no bindings, or NULL if insufficient memory is available.*/
 
   SymTable_T SymTable_new(void)
   {
-    SymTable_T st;
-    st = (SymTable_T) malloc(sizeof(struct SymTable)); 
+    SymTable_T symtab;
+    symtab = (SymTable_T) malloc(sizeof(struct SymTable)); 
     if (st == NULL) return NULL;
-    st->first = NULL;
-    st-> length = 0;
-    return st;
+    symtab->first = NULL;
+    symtab-> length = 0;
+    return symtab;
   }
 
 /*----------------------------------------------*/
