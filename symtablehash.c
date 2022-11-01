@@ -60,9 +60,9 @@ that contains no bindings, or NULL if insufficient memory is available.*/
     SymTable_T symtab;
     symtab = (SymTable_T) malloc(sizeof(struct SymTable)); 
     if (symtab == NULL) return NULL;
-    symtab.length = 0;
+    symtab->length = 0;
     symtab->numBuck = 509;
-    symtab->hash = calloc(numBuck, sizeof(*));
+    symtab->hash = calloc(symtab->numBuck, sizeof(void*));
     if(symtab->hash == NULL) return NULL;
     return symtab;
   }
@@ -74,15 +74,38 @@ that contains no bindings, or NULL if insufficient memory is available.*/
   void SymTable_free(SymTable_T oSymTable)
   {
     struct Node* toFree;
+    
+    size_t elementsProc;
+    size_t i;
+
     assert(oSymTable != NULL); 
 
     /*free front to back key by node*/
+       
+        current = oSymTable->hash;
+        while (elementsProc != oSymTable->length)
+        {
+            while (current == NULL){
+                 current++;
+                 i++;
+            }
+
+            toFree = *current;
+            current = current->next;
+            free(toFree->key);
+            free(toFree);
+            elementsProc++;
+
+            if(current == NULL)
+            i++;
+            current = hash[i];
+        }
+
   while (oSymTable->first != NULL)
   {
   toFree = oSymTable->first ; 
   oSymTable->first = oSymTable->first->next;
-  free(toFree->key);
-  free(toFree);
+
   }
   free(oSymTable->hash)
   free(oSymTable);
@@ -115,11 +138,12 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         struct Node *current;
         struct Node* newNode;
         struct Node* temp;
+        size_t bucket;
 
         assert(pcKey != NULL);
         assert(oSymTable!= NULL);
         
-        size_t bucket = SymTable_hash(*pcKey, oSymTable.numBuck);
+        bucket = SymTable_hash(pcKey, oSymTable->numBuck);
 
         while (oSymTable->hash[bucket] != NULL) 
         {
@@ -158,11 +182,12 @@ Otherwise it must leave oSymTable unchanged and return NULL.*/
      {
         struct Node *current;
         struct Node* old;
+        size_t bucket;
 
         assert(pcKey != NULL);
         assert(oSymTable != NULL);
 
-        size_t bucket = SymTable_hash(*pcKey, oSymTable.numBuck);
+        bucket = SymTable_hash(*pcKey, oSymTabl->numBuck);
         
         current = oSymTable->hash[bucket];
         if(current == NULL) return NULL;
@@ -186,11 +211,12 @@ contains a binding whose key is pcKey, and 0 (FALSE) otherwise.*/
   int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
   { 
         struct Node *current;
+        size_t bucket;
 
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
 
-        size_t bucket = SymTable_hash(*pcKey, oSymTable.numBuck);
+        bucket = SymTable_hash(*pcKey, oSymTable->numBuck);
         
         current = oSymTable->hash[bucket];
         if (current == NULL) return 0;
@@ -212,11 +238,12 @@ contains a binding whose key is pcKey, and 0 (FALSE) otherwise.*/
   void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
   {
         struct Node *current;
+        size_t bucket;
 
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
 
-        size_t bucket = SymTable_hash(*pcKey, oSymTable.numBuck);
+        bucket = SymTable_hash(*pcKey, oSymTable->numBuck);
         
         current = oSymTable->hash[bucket];
         
@@ -245,11 +272,12 @@ Otherwise the function must not change oSymTable and return NULL.*/
         struct Node *prior;
         struct Node * remove;
         void* removedVal;
+        size_t bucket;
 
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
 
-        size_t bucket = SymTable_hash(*pcKey, oSymTable.numBuck);
+        bucket = SymTable_hash(*pcKey, oSymTable.numBuck);
         
         current = oSymTable->hash[bucket];
         if (current == NULL) return NULL;
@@ -303,6 +331,7 @@ That is, the function must call (*pfApply)(pcKey, pvValue, pvExtra)
 
             (*pfApply) ((void*) current->key, (void*) current->value, (void*) pvExtra);
             current = current->next;
+            elementsProc ++;
             if(current == NULL)
             i++;
             current = hash[i];
