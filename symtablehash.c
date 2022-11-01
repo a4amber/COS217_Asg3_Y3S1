@@ -147,10 +147,10 @@ that contains no bindings, or NULL if insufficient memory is available.*/
 
         while (oSymTable->hash[bucket] != NULL) 
         {
-            current = oSymTable->hash[bucket];
+            current = *oSymTable->hash[bucket];
             if( strcmp(current->key, pcKey) ==0)
             return 0;
-            current = oSymTable->hash++;
+            current = current->next;
         }
 
         newNode = calloc(1, sizeof(struct Node));
@@ -164,7 +164,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         temp = oSymTable->hash[bucket]->next;
         newNode->next = temp;
         }
-        oSymTable->has[bucket] = newNode;
+        oSymTable->hash[bucket] = newNode;
         oSymTable->length++;
         return 1;
 
