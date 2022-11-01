@@ -78,6 +78,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
      {
         struct Node *current;
         struct Node* newNode;
+        struct Node* temp;
 
         assert(pcKey != NULL);
         assert(oSymTable!= NULL);
@@ -101,9 +102,10 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         newNode->value = (void*) pvValue;
         if(oSymTable->first != NULL)
         {
-        oSymTable->first->next = oSymTable->first;
+        temp = oSymTable->first;
         }
         oSymTable->first = newNode;
+        newNode->next = temp;
         oSymTable->length++;
         return 1;
 
