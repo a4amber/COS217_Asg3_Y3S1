@@ -27,7 +27,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
   {
     SymTable_T symtab;
     symtab = (SymTable_T) malloc(sizeof(struct SymTable)); 
-    if (st == NULL) return NULL;
+    if (symtab == NULL) return NULL;
     symtab->first = NULL;
     symtab-> length = 0;
     return symtab;
