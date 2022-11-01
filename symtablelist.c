@@ -13,9 +13,20 @@
 
 
 /*representation of the nodes used to implement symbol table*/
-struct Node {char* key; void * value; struct Node *next;}; 
+struct Node {
+    /*string key*/
+    char* key;
+    /*value provided by client*/
+     void * value;
+     /*next node in linked list implementation*/
+     struct Node *next;}; 
+
 /*a represenation of the Symbol Table object*/
-struct SymTable {struct Node *first; size_t length;} ;
+struct SymTable {
+    /*first node in the symbol table linked list implementation*/
+    struct Node *first;
+    /*number of elements in symbol table*/
+     size_t length;} ;
 
 
 /*----------------------------------------------*/
