@@ -89,7 +89,6 @@ that contains no bindings, or NULL if insufficient memory is available.*/
 
         while (current != NULL) 
         {
-            if (strcmp(current->key, pcKey) == 0)
             return 0;
             current = current->next;
         }
@@ -105,6 +104,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         temp = oSymTable->first;
         }
         oSymTable->first = newNode;
+        if(oSymTable->length != 0)
         newNode->next = temp;
         oSymTable->length++;
         return 1;
