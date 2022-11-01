@@ -24,7 +24,7 @@ struct Node {
 /*a represenation of the Symbol Table object*/
 struct SymTable {
     /*location of hash array*/
-    struct Node *hash;
+    void *hash;
     /*number of elements in symbol table*/
      size_t length;
      /*number of bucket counts*/
@@ -74,6 +74,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
   void SymTable_free(SymTable_T oSymTable)
   {
     struct Node* toFree;
+    void* current;
     
     size_t elementsProc;
     size_t i;
@@ -98,16 +99,10 @@ that contains no bindings, or NULL if insufficient memory is available.*/
 
             if(current == NULL)
             i++;
-            current = hash[i];
+            current = oSymTable->hash[i];
         }
 
-  while (oSymTable->first != NULL)
-  {
-  toFree = oSymTable->first ; 
-  oSymTable->first = oSymTable->first->next;
-
-  }
-  free(oSymTable->hash)
+  free(oSymTable->hash);
   free(oSymTable);
   }
 
