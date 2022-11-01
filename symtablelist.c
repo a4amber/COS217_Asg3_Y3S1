@@ -126,7 +126,7 @@ Otherwise it must leave oSymTable unchanged and return NULL.*/
         struct Node* old;
 
         assert(pcKey != NULL);
-        assert(pvValue != NULL);
+        assert(oSymTable != NULL);
 
         current = oSymTable->first;
         while (strcmp(current->key, pcKey) != 0) 
