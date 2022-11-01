@@ -210,8 +210,8 @@ Otherwise the function must not change oSymTable and return NULL.*/
         }
         remove = current;
         current = current->next;
-        free(remove->key);
         removedVal = remove->value; 
+        free(remove->key);
         free(remove);
         oSymTable->length--;
         return removedVal;
