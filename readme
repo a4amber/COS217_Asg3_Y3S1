@@ -65,7 +65,7 @@ symtablelist.c:222:9: Variable prior used before definition
   An rvalue is used that may not be initialized to a value on some execution
   path. (Use -usedef to inhibit warning)
 
-The variable prior keeps track of the node before the current key would be removed. Setting prior->next = current->next allows current to be removed and the nodes before and after are connected. If the first element is the one that needs to be removed prior need not be initialized. The warning is thrown because prior is initialized in a while loop that will not be entered if current is the first element. However, this is the desired logic as explained above and an if statement ensures that current will not be used if not initialized.
+        The variable prior keeps track of the node before the current key would be removed. Setting prior->next = current->next allows current to be removed and the nodes before and after are connected. If the first element is the one that needs to be removed prior need not be initialized. The warning is thrown because prior is initialized in a while loop that will not be entered if current is the first element. However, this is the desired logic as explained above and an if statement ensures that current will not be used if not initialized.
 ------------------------------------------------------------------------
 What warnings does critTer generate on symtablelist.c, and what are your
 disagreements with them? Copy the critTer warnings here, and express
@@ -73,7 +73,19 @@ your disagreement after each warning. If there are no warnings, then
 write "None."
 
 
+   symtablelist.c: line 90: medium priority:
+   Do you want to validate 'pvValue' through an assert?
+                No we don't care what the value is, the client can make it NULL if it wants; not an issue
+    
 
+   symtablelist.c: line 135: medium priority:
+   Do you want to validate 'pvValue' through an assert?
+                No we don't care what the value is, the clientcan make it NULL if it wants; not an issue
+
+
+   symtablelist.c: line 255: medium priority:
+
+                No we don't care what the value is, the client can make it NULL if it wants; not an issue
 ------------------------------------------------------------------------
 What warnings does splint generate on symtablehash.c, and what are your
 disagreements with them? Copy the splint warnings here, and express your
