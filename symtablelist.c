@@ -195,6 +195,7 @@ Otherwise the function must not change oSymTable and return NULL.*/
   void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
   {
         struct Node *current;
+        struct Node *prior;
         struct Node * remove;
         void* removedVal;
 
@@ -204,12 +205,13 @@ Otherwise the function must not change oSymTable and return NULL.*/
         current = oSymTable->first;
         while (strcmp(current->key, pcKey) != 0) 
         {
+            prior = current;
             current = current->next;
             if (current == NULL)
             return NULL;
         }
         remove = current;
-        current = current->next;
+        prior->next = current->next;
         removedVal = remove->value; 
         free(remove->key);
         free(remove);
