@@ -211,7 +211,12 @@ Otherwise the function must not change oSymTable and return NULL.*/
             return NULL;
         }
         remove = current;
+        
+        if(current != oSymTable->first)
         prior->next = current->next;
+        else
+        oSymTable->first = current->next;
+
         removedVal = remove->value; 
         free(remove->key);
         free(remove);
