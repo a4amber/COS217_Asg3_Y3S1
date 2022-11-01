@@ -103,10 +103,9 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         if(oSymTable->first != NULL)
         {
         temp = oSymTable->first;
+        newNode->next = temp;
         }
         oSymTable->first = newNode;
-        if(oSymTable->length != 0)
-        newNode->next = temp;
         oSymTable->length++;
         return 1;
 
