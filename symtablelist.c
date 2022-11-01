@@ -89,6 +89,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
 
         while (current != NULL) 
         {
+            if( strcmp(current->key, pcKey) ==0)
             return 0;
             current = current->next;
         }
