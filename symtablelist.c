@@ -211,7 +211,7 @@ Otherwise the function must not change oSymTable and return NULL.*/
             return NULL;
         }
         remove = current;
-        
+
         if(current != oSymTable->first)
         prior->next = current->next;
         else
@@ -243,8 +243,8 @@ That is, the function must call (*pfApply)(pcKey, pvValue, pvExtra)
         current = oSymTable->first;
         while (current != NULL)
         {
-            current = current->next;
             (*pfApply) ((void*) current->key, (void*) current->value, (void*) pvExtra);
+            current = current->next;
         }
         
      }
