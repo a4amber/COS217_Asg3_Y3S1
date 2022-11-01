@@ -334,7 +334,7 @@ That is, the function must call (*pfApply)(pcKey, pvValue, pvExtra)
             elementsProc ++;
             if(current == NULL)
             i++;
-            current = hash[i];
+            current = oSymTable->hash[i];
         }
         
      }
