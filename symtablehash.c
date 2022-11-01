@@ -24,7 +24,7 @@ struct Node {
 /*a represenation of the Symbol Table object*/
 struct SymTable {
     /*location of hash array*/
-    void *hash;
+    struct Node *hash;
     /*number of elements in symbol table*/
      size_t length;
      /*number of bucket counts*/
