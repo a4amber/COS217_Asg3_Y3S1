@@ -207,7 +207,7 @@ Otherwise the function must not change oSymTable and return NULL.*/
         assert(pcKey != NULL);
 
         current = oSymTable->first;
-        if (current == NULL) return 0;
+        if (current == NULL) return NULL;
 
         while (strcmp(current->key, pcKey) != 0) 
         {
