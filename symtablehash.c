@@ -91,13 +91,13 @@ that contains no bindings, or NULL if insufficient memory is available.*/
                  i++;
             }
 
-            toFree = *current;
-            oSymTable->hash[i] current->next;
+            toFree = current;
+            oSymTable->hash[i] = current->next;
             free(toFree->key);
             free(toFree);
             elementsProc++;
 
-            if(hash[i] == NULL)
+            if(oSymTable->hash[i] == NULL)
             i++;
         }
 
