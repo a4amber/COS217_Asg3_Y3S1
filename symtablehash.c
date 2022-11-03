@@ -1,5 +1,5 @@
   /*--------------------------------------------------------------------*/
-/* symtablehash.c                                                    */
+/* symtablehash.c                                                     */
 /* Author: Amber Chow                                                     */
 /*--------------------------------------------------------------------*/
 #include "symtable.h"
@@ -19,22 +19,19 @@ struct Node {
     /*value provided by client*/
      void * value;
      /*next node in linked list implementation*/
-     struct Node **next;
-     }; 
+     struct Node *next;}; 
 
 /*a represenation of the Symbol Table object*/
 struct SymTable {
-    /*location of hash array*/
-    struct Node *hash;
+    /*the hash table: an array of pointers to Nodes*/
+    struct Node** hash;
     /*number of elements in symbol table*/
      size_t length;
-     /*number of bucket counts*/
-     size_t numBuck;
+     /*the number of buckets the hashtable contains*/
+     size_t buckets;
      } ;
 
-
 /*----------------------------------------------*/
-
 /* Return a hash code for pcKey that is between 0 and uBucketCount-1,
    inclusive. */
 
@@ -51,8 +48,8 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 
    return uHash % uBucketCount;
 }
-
 /*----------------------------------------------*/
+
 /*The SymTable_new() function returns a new SymTable object 
 that contains no bindings, or NULL if insufficient memory is available.*/  
 
@@ -61,10 +58,9 @@ that contains no bindings, or NULL if insufficient memory is available.*/
     SymTable_T symtab;
     symtab = (SymTable_T) malloc(sizeof(struct SymTable)); 
     if (symtab == NULL) return NULL;
-    symtab->length = 0;
-    symtab->numBuck = 509;
-    symtab->hash = calloc(symtab->numBuck, sizeof(void*));
-    if(symtab->hash == NULL) return NULL;
+    symtab->buckets = 509;
+    symtab->hash = (struct Node**) calloc(symtab->buckets,sizeof(struct Node*));
+    symtab-> length = 0;
     return symtab;
   }
 
@@ -75,34 +71,21 @@ that contains no bindings, or NULL if insufficient memory is available.*/
   void SymTable_free(SymTable_T oSymTable)
   {
     struct Node* toFree;
-    struct Node* current;
-    
-    size_t elementsProc;
-    size_t i;
-
+    size_t i = 0;
     assert(oSymTable != NULL); 
 
     /*free front to back key by node*/
-       
-        current = oSymTable->hash;
-        while (elementsProc != oSymTable->length)
-        {
-            while (current == NULL){
-                 current++;
-                 i++;
-            }
-
-            toFree = current;
-            oSymTable->hash[i] = current->next;
-            free(toFree->key);
-            free(toFree);
-            elementsProc++;
-
-            if(oSymTable->hash[i] == NULL)
-            i++;
-        }
-
-  free(oSymTable->hash);
+  while (oSymTable->length > 0)
+  {
+  while(oSymTable->table[i] != NULL){
+    toFree = table[i];
+    table[i] = table[i]->next;
+    free(toFree->key);
+    free(toFree);
+  } 
+  i++;
+  }
+  free(hash);
   free(oSymTable);
   }
 
@@ -133,16 +116,17 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         struct Node *current;
         struct Node* newNode;
         struct Node* temp;
-        size_t bucket;
+        size_t bin;
 
         assert(pcKey != NULL);
         assert(oSymTable!= NULL);
         
-        bucket = SymTable_hash(pcKey, oSymTable->numBuck);
 
-        while (oSymTable->hash[bucket] != NULL) 
+        /*return false if binding exists*/
+        bin = SymTable_hash(pcKey,oSymTable->buckets);
+        current = oSymTable->hash[bin];
+        while (current != NULL) 
         {
-            current = *oSymTable->hash[bucket];
             if( strcmp(current->key, pcKey) ==0)
             return 0;
             current = current->next;
@@ -154,12 +138,12 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         if(newNode == NULL) return 0;
         strcpy(newNode->key, pcKey);
         newNode->value = (void*) pvValue;
-        if(oSymTable->hash[bucket] != NULL)
+        if(oSymTable->hash[bin] != NULL)
         {
-        temp = oSymTable->hash[bucket]->next;
+        temp = oSymTable->hash[bin];
         newNode->next = temp;
         }
-        oSymTable->hash[bucket] = newNode;
+        oSymTable->hash[bin] = newNode;
         oSymTable->length++;
         return 1;
 
@@ -177,16 +161,15 @@ Otherwise it must leave oSymTable unchanged and return NULL.*/
      {
         struct Node *current;
         struct Node* old;
-        size_t bucket;
+        size_t bin;
 
         assert(pcKey != NULL);
         assert(oSymTable != NULL);
 
-        bucket = SymTable_hash(*pcKey, oSymTabl->numBuck);
-        
-        current = oSymTable->hash[bucket];
-        if(current == NULL) return NULL;
+        bin = SymTable_hash(pcKey,oSymTable->buckets);
 
+        current = oSymTable->hash[bin];
+        if(current == NULL) return NULL;
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current->next;
@@ -206,14 +189,14 @@ contains a binding whose key is pcKey, and 0 (FALSE) otherwise.*/
   int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
   { 
         struct Node *current;
-        size_t bucket;
+        size_t bin;
 
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
 
-        bucket = SymTable_hash(*pcKey, oSymTable->numBuck);
-        
-        current = oSymTable->hash[bucket];
+        bin = SymTable_hash(pcKey,oSymTable->buckets);
+
+        current = oSymTable->hash[bin];
         if (current == NULL) return 0;
 
         while (strcmp(current->key, pcKey) != 0) 
@@ -233,14 +216,13 @@ contains a binding whose key is pcKey, and 0 (FALSE) otherwise.*/
   void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
   {
         struct Node *current;
-        size_t bucket;
+        size_t bin;
 
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
 
-        bucket = SymTable_hash(*pcKey, oSymTable->numBuck);
-        
-        current = oSymTable->hash[bucket];
+        bin = SymTable_hash(pcKey,oSymTable->buckets);
+        current = oSymTable->hash[bin];
         
         if (current == NULL) return NULL;
 
@@ -267,14 +249,14 @@ Otherwise the function must not change oSymTable and return NULL.*/
         struct Node *prior;
         struct Node * remove;
         void* removedVal;
-        size_t bucket;
+        size_t bin;
 
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
 
-        bucket = SymTable_hash(*pcKey, oSymTable.numBuck);
-        
-        current = oSymTable->hash[bucket];
+        bin = SymTable_hash(pcKey,oSymTable->buckets);
+        current = oSymTable->hash[bin];
+
         if (current == NULL) return NULL;
 
         while (strcmp(current->key, pcKey) != 0) 
@@ -286,10 +268,10 @@ Otherwise the function must not change oSymTable and return NULL.*/
         }
         remove = current;
 
-        if(current != oSymTable->first)
+        if(current != oSymTable->hash[bin])
         prior->next = current->next;
         else
-        oSymTable->first = current->next;
+        oSymTable->hash[bin] = current->next;
 
         removedVal = remove->value; 
         free(remove->key);
@@ -310,27 +292,23 @@ That is, the function must call (*pfApply)(pcKey, pvValue, pvExtra)
      const void *pvExtra)
      {
         struct Node *current;
-        size_t elementsProc;
-        size_t i;
+        size_t i = 0;
+        size_t proc = 0;
 
         assert(oSymTable != NULL);
         assert(pfApply != NULL);
-        
-        current = oSymTable->hash;
-        while (elementsProc != oSymTable.length)
-        {
-            while (current == NULL){
-                 current++;
-                 i++;
-            }
 
-            (*pfApply) ((void*) current->key, (void*) current->value, (void*) pvExtra);
-            current = current->next;
-            elementsProc ++;
-            if(current == NULL)
+
+        current = oSymTable->hash[i];
+        while (proc < oSymTable->length){
+            while(current != NULL)
+            {
+                (*pfApply) ((void*) current->key, (void*) current->value, (void*) pvExtra);
+                proc++;
+                current = current->next;
+            }
             i++;
-            current = oSymTable->hash[i];
+            current = current[i];
         }
         
      }
-     

@@ -140,6 +140,8 @@ Otherwise it must leave oSymTable unchanged and return NULL.*/
         assert(oSymTable != NULL);
 
         current = oSymTable->first;
+        if (current == NULL)
+            return NULL;
         while (strcmp(current->key, pcKey) != 0) 
         {
             current = current->next;
