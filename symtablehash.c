@@ -115,6 +115,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
   int SymTable_put(SymTable_T oSymTable,
      const char *pcKey, const void *pvValue)
      {
+        /*general vairables for entering a new node*/
         struct Node *current;
         struct Node* newNode;
         struct Node* temp;

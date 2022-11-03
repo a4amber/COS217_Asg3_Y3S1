@@ -124,21 +124,27 @@ write "None."
 
    symtablehash.c: line 62: high priority:
    Use of magic number (509), which should be given a meaningful name
+        Assignment gave the magic numbers as magic numbers
 
    symtablehash.c: line 161: high priority:
    Use of magic number (65521), which should be given a meaningful name
+           Assignment gave the magic numbers as magic numbers
 
    symtablehash.c: line 174: high priority:
    Use of magic number (509), which should be given a meaningful name
+           Assignment gave the magic numbers as magic numbers
 
    symtablehash.c: line 174: high priority:
    Use of magic number (1021), which should be given a meaningful name
+        Assignment gave the magic numbers as magic numbers
 
    symtablehash.c: line 174: high priority:
    Use of magic number (1021), which should be given a meaningful name
+           Assignment gave the magic numbers as magic numbers
 
    symtablehash.c: line 174: high priority:
    Use of magic number (2039), which should be given a meaningful name
+           Assignment gave the magic numbers as magic numbers
 
    symtablehash.c: line 174: high priority:
    Use of magic number (2039), which should be given a meaningful name
