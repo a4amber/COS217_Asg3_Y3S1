@@ -78,14 +78,14 @@ that contains no bindings, or NULL if insufficient memory is available.*/
   while (oSymTable->length > 0)
   {
   while(oSymTable->table[i] != NULL){
-    toFree = table[i];
-    table[i] = table[i]->next;
+    toFree = hash[i];
+    oSymTable->hash[i] =oSymTable->hash[i]->next;
     free(toFree->key);
     free(toFree);
   } 
   i++;
   }
-  free(hash);
+  free(oSymTable->hash);
   free(oSymTable);
   }
 
