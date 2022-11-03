@@ -74,12 +74,12 @@ that contains no bindings, or NULL if insufficient memory is available.*/
     size_t i = 0;
     assert(oSymTable != NULL); 
 
-    /*free front to back key by node*/
+    /*free top to bottom key by node*/
   while (oSymTable->length > 0)
   {
   while(oSymTable->hash[i] != NULL){
     toFree =oSymTable->hash[i];
-    oSymTable->hash[i] =toFree->next;
+    oSymTable->hash[i] =NULL;
     free(toFree->key);
     free(toFree);
   } 
