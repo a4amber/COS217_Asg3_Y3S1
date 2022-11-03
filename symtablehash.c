@@ -194,6 +194,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
             i++;
             rehash = oSymTable->hash[i];
         }
+     }
 /*----------------------------------------------*/
 
 /*If oSymTable contains a binding with key pcKey, 
