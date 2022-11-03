@@ -107,78 +107,21 @@ your disagreement after each warning. If there are no warnings, then
 write "None."
 
 
-   symtablehash.c: line 117: medium priority:
+   symtablehash.c: line 116: medium priority:
    Do you want to validate 'pvValue' through an assert?
-        No. Client provides value and is allowed to be null
 
-   symtablehash.c: line 224: medium priority:
+   symtablehash.c: line 237: medium priority:
    Do you want to validate 'pvValue' through an assert?
-        No. Client provides value and is allowed to be null
 
-   symtablehash.c: line 356: medium priority:
+   symtablehash.c: line 369: medium priority:
    Do you want to validate 'pvExtra' through an assert?
-        No. Client provides value and is allowed to be null
 
-   symtablehash.c: line 117: low priority:
+   symtablehash.c: line 116: low priority:
    This function definition probably needs more local comments
 
-   symtablehash.c: line 62: high priority:
-   Use of magic number (509), which should be given a meaningful name
-        Assignment gave the magic numbers as magic numbers
-
-   symtablehash.c: line 161: high priority:
-   Use of magic number (65521), which should be given a meaningful name
-           Assignment gave the magic numbers as magic numbers
-
-   symtablehash.c: line 174: high priority:
-   Use of magic number (509), which should be given a meaningful name
-           Assignment gave the magic numbers as magic numbers
-
-   symtablehash.c: line 174: high priority:
-   Use of magic number (1021), which should be given a meaningful name
-        Assignment gave the magic numbers as magic numbers
-
-   symtablehash.c: line 174: high priority:
-   Use of magic number (1021), which should be given a meaningful name
-           Assignment gave the magic numbers as magic numbers
-
-   symtablehash.c: line 174: high priority:
-   Use of magic number (2039), which should be given a meaningful name
-           Assignment gave the magic numbers as magic numbers
-
-   symtablehash.c: line 174: high priority:
-   Use of magic number (2039), which should be given a meaningful name
-           Assignment gave the magic numbers as magic numbers
-
-   symtablehash.c: line 174: high priority:
-   Use of magic number (4039), which should be given a meaningful name
-           Assignment gave the magic numbers as magic numbers
-
-   symtablehash.c: line 174: high priority:
-   Use of magic number (4039), which should be given a meaningful name
-           Assignment gave the magic numbers as magic numbers
-
-   symtablehash.c: line 174: high priority:
-   Use of magic number (8191), which should be given a meaningful name
-           Assignment gave the magic numbers as magic numbers
-
-   symtablehash.c: line 174: high priority:
-   Use of magic number (8191), which should be given a meaningful name
-           Assignment gave the magic numbers as magic numbers
-
-   symtablehash.c: line 174: high priority:
-   Use of magic number (32729), which should be given a meaningful name
-           Assignment gave the magic numbers as magic numbers
-
-   symtablehash.c: line 174: high priority:
-   Use of magic number (32729), which should be given a meaningful name
-           Assignment gave the magic numbers as magic numbers
-
-   symtablehash.c: line 174: high priority:
-   Use of magic number (65521), which should be given a meaningful name
-
-   symtablehash.c: line 193: low priority:
+   symtablehash.c: line 208: low priority:
    This area is deeply nested at level 4, consider refactoring
+
 
 
 ------------------------------------------------------------------------
