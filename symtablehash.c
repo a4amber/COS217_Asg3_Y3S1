@@ -56,10 +56,11 @@ that contains no bindings, or NULL if insufficient memory is available.*/
 
   SymTable_T SymTable_new(void)
   {
+    size_t EXP1 = 509;
     SymTable_T symtab;
     symtab = (SymTable_T) malloc(sizeof(struct SymTable)); 
     if (symtab == NULL) return NULL;
-    symtab->buckets = 509;
+    symtab->buckets = EXP1;
     symtab->hash = (struct Node**) calloc(symtab->buckets,sizeof(struct Node*));
     symtab-> length = 0;
     return symtab;
@@ -109,8 +110,6 @@ that contains no bindings, or NULL if insufficient memory is available.*/
  Otherwise the function must leave oSymTable unchanged 
  and return 0 (FALSE). If insufficient memory is available,
   then the function must leave oSymTable unchanged and return 0 (FALSE).*/
-
-
 
   int SymTable_put(SymTable_T oSymTable,
      const char *pcKey, const void *pvValue)
