@@ -201,6 +201,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
                 rehash = oldHash[i];
 
             }
+            free(oldHash);
         }
 
         return 1;
