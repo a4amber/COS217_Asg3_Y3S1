@@ -128,6 +128,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         size_t newbin;
         struct Node** oldHash;
 
+        /*the expansion sizes as described by the assignment*/
        size_t EXP1 = 509;
        size_t EXP2 = 1021;
        size_t EXP3= 2039;
@@ -151,6 +152,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
             current = current->next;
         }
 
+        /*new node*/
         newNode = calloc(1, sizeof(struct Node));
         if(newNode == NULL) return 0;
         newNode->key = calloc(strlen(pcKey)+1, sizeof(char));
@@ -188,11 +190,13 @@ that contains no bindings, or NULL if insufficient memory is available.*/
             oldHash = oSymTable->hash;
             oSymTable->hash = (struct Node**) calloc(oSymTable->buckets,sizeof(struct Node*));
             if(oSymTable->hash == NULL) return 0;
+
             rehash = oldHash[i];
             while (proc < oSymTable->length)
             {
                 while(rehash != NULL)
                 {
+                    /*take out the old nodes and put them into the new hash table top to bottom*/
                     oldHash[i] = rehash->next;
                     rehash->next = NULL;
                     newbin = SymTable_hash(rehash->key, oSymTable->buckets);
@@ -208,16 +212,14 @@ that contains no bindings, or NULL if insufficient memory is available.*/
                     }
                     rehash = oldHash[i];
                     proc++;
-                    
                 }
-                
                 i++;
                 rehash = oldHash[i];
 
             }
             free(oldHash);
         }
-
+        /*----------------EXPANSION ENDED-------------*/
         return 1;
      
      }
