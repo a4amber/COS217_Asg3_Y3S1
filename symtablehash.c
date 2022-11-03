@@ -182,6 +182,8 @@ that contains no bindings, or NULL if insufficient memory is available.*/
             {
                 while(rehash != NULL)
                 {
+                    oldHash[i] = rehash->next;
+                    rehash->next = NULL;
                     newbin = SymTable_hash(rehash->key, oSymTable->buckets);
                     if(oSymTable->hash[newbin] == NULL)
                     {
