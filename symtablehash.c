@@ -31,85 +31,7 @@ struct SymTable {
      /*the number of buckets the hashtable contains*/
      size_t buckets;
      } ;
- /*----------------------------------------------*/
- static int expansion(SymTable_T oSymTable)    
- {
 
-    
-        /*variables for expansion*/
-        size_t proc=0;
-        size_t i =0;
-        struct Node *rehash;
-        struct Node* hold;
-        size_t newbin;
-        struct Node** oldHash;
-        
-        /*the expansion sizes as described by the assignment*/
-       size_t EXP1 = 509;
-       size_t EXP2 = 1021;
-       size_t EXP3= 2039;
-       size_t EXP4 =4093;
-       size_t EXP5 =8191;
-       size_t EXP6 =16381;
-       size_t EXP7 =32749;
-       size_t EXP8 =65521;
-
-        
-        assert(oSymTable!= NULL);
-        /*----------------EXPANSION-------------*/
-
-            /*set the new number of buckets*/
-            if(oSymTable->buckets == EXP1)
-                oSymTable->buckets = EXP2;
-            else if(oSymTable->buckets == EXP2)
-                oSymTable->buckets =EXP3;
-            else if(oSymTable->buckets == EXP3)
-                oSymTable->buckets =EXP4;
-            else if(oSymTable->buckets == EXP4)
-                oSymTable->buckets =EXP5;
-            else if(oSymTable->buckets == EXP5)
-                oSymTable->buckets=EXP6;
-            else if(oSymTable->buckets == EXP6)
-                oSymTable->buckets =EXP7;
-            else if(oSymTable->buckets == EXP7)
-                oSymTable->buckets =EXP8;                
-        
-            /*rehash all the keys (takes ~n time)*/
-            oldHash = oSymTable->hash;
-            oSymTable->hash = (struct Node**) calloc(oSymTable->buckets,sizeof(struct Node*));
-            if(oSymTable->hash == NULL) return 0;
-
-            rehash = oldHash[i];
-            while (proc < oSymTable->length)
-            {
-                while(rehash != NULL)
-                {
-                    /*take out the old nodes and put them into the new hash table top to bottom*/
-                    oldHash[i] = rehash->next;
-                    rehash->next = NULL;
-                    newbin = SymTable_hash(rehash->key, oSymTable->buckets);
-                    if(oSymTable->hash[newbin] == NULL)
-                    {
-                        oSymTable->hash[newbin] = rehash;
-                    }
-                    else
-                    {
-                        hold = oSymTable->hash[newbin];
-                        oSymTable->hash[newbin] = rehash;
-                        rehash->next = hold;
-                    }
-                    rehash = oldHash[i];
-                    proc++;
-                }
-                i++;
-                rehash = oldHash[i];
-
-            
-            free(oldHash);
-        }
-        return 1;
- }
-/*----------------------------------------------*/
 /*----------------------------------------------*/
 /* Return a hash code for pcKey that is between 0 and uBucketCount-1,
    inclusive. */
@@ -198,6 +120,14 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         struct Node* temp;
         size_t bin;
 
+        /*variables for expansion*/
+        size_t proc=0;
+        size_t i =0;
+        struct Node *rehash;
+        struct Node* hold;
+        size_t newbin;
+        struct Node** oldHash;
+
         assert(pcKey != NULL);
         assert(oSymTable!= NULL);
         
@@ -229,7 +159,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         
         if(oSymTable->length > oSymTable->buckets && oSymTable->buckets != EXP8)
         {
-            if(!expansion(oSymTable)) return 0;
+            expansion(oSymTable);
         }
 
         return 1;
@@ -237,7 +167,71 @@ that contains no bindings, or NULL if insufficient memory is available.*/
      }
      
      
+ /*----------------------------------------------*/
+ static void expansion(SymTable oSymTable)    
+ {
+            /*the expansion sizes as described by the assignment*/
+       size_t EXP1 = 509;
+       size_t EXP2 = 1021;
+       size_t EXP3= 2039;
+       size_t EXP4 =4093;
+       size_t EXP5 =8191;
+       size_t EXP6 =16381;
+       size_t EXP7 =32749;
+       size_t EXP8 =65521;
+        /*----------------EXPANSION-------------*/
 
+            /*set the new number of buckets*/
+            if(oSymTable->buckets == EXP1)
+                oSymTable->buckets = EXP2;
+            else if(oSymTable->buckets == EXP2)
+                oSymTable->buckets =EXP3;
+            else if(oSymTable->buckets == EXP3)
+                oSymTable->buckets =EXP4;
+            else if(oSymTable->buckets == EXP4)
+                oSymTable->buckets =EXP5;
+            else if(oSymTable->buckets == EXP5)
+                oSymTable->buckets=EXP6;
+            else if(oSymTable->buckets == EXP6)
+                oSymTable->buckets =EXP7;
+            else if(oSymTable->buckets == EXP7)
+                oSymTable->buckets =EXP8;                
+        
+            /*rehash all the keys (takes ~n time)*/
+            oldHash = oSymTable->hash;
+            oSymTable->hash = (struct Node**) calloc(oSymTable->buckets,sizeof(struct Node*));
+            if(oSymTable->hash == NULL) return 0;
+
+            rehash = oldHash[i];
+            while (proc < oSymTable->length)
+            {
+                while(rehash != NULL)
+                {
+                    /*take out the old nodes and put them into the new hash table top to bottom*/
+                    oldHash[i] = rehash->next;
+                    rehash->next = NULL;
+                    newbin = SymTable_hash(rehash->key, oSymTable->buckets);
+                    if(oSymTable->hash[newbin] == NULL)
+                    {
+                        oSymTable->hash[newbin] = rehash;
+                    }
+                    else
+                    {
+                        hold = oSymTable->hash[newbin];
+                        oSymTable->hash[newbin] = rehash;
+                        rehash->next = hold;
+                    }
+                    rehash = oldHash[i];
+                    proc++;
+                }
+                i++;
+                rehash = oldHash[i];
+
+            
+            free(oldHash);
+        }
+ }
+/*----------------------------------------------*/
 
 /*If oSymTable contains a binding with key pcKey, 
 then SymTable_replace must replace the binding's value 
