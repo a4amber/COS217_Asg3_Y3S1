@@ -170,10 +170,8 @@ that contains no bindings, or NULL if insufficient memory is available.*/
                 oSymTable->buckets ==32729;
             else if(oSymTable->buckets == 32729)
                 oSymTable->buckets ==65521;
-
-
-        }
-
+        
+        /*rehash all the keys (takes ~n time)*/
         rehash = oSymTable->hash[i];
         while (proc < oSymTable->length){
             while(rehash != NULL)
@@ -194,7 +192,10 @@ that contains no bindings, or NULL if insufficient memory is available.*/
             i++;
             rehash = oSymTable->hash[i];
         }
+
+        }
      }
+     
 /*----------------------------------------------*/
 
 /*If oSymTable contains a binding with key pcKey, 
