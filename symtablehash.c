@@ -159,17 +159,17 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         if(oSymTable->length > oSymTable->buckets && oSymTable->buckets != 65521)
         {
             if(oSymTable->buckets == 509)
-                oSymTable->buckets ==1021;
-            else if(oSymTable->buckets == 1021)
-                oSymTable->buckets ==2039;
+                oSymTable->buckets = 1021;
+            else if(oSymTable->buckets = 1021)
+                oSymTable->buckets =2039;
             else if(oSymTable->buckets == 2039)
-                oSymTable->buckets ==4039;
+                oSymTable->buckets =4039;
             else if(oSymTable->buckets == 4039)
-                oSymTable->buckets ==8191;
+                oSymTable->buckets =8191;
             else if(oSymTable->buckets == 8191)
-                oSymTable->buckets ==32729;
+                oSymTable->buckets=32729;
             else if(oSymTable->buckets == 32729)
-                oSymTable->buckets ==65521;
+                oSymTable->buckets =65521;
         
         /*rehash all the keys (takes ~n time)*/
         rehash = oSymTable->hash[i];
