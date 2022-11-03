@@ -120,14 +120,6 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         struct Node* temp;
         size_t bin;
 
-        /*variables for expansion*/
-        size_t proc=0;
-        size_t i =0;
-        struct Node *rehash;
-        struct Node* hold;
-        size_t newbin;
-        struct Node** oldHash;
-
         assert(pcKey != NULL);
         assert(oSymTable!= NULL);
         
@@ -168,9 +160,19 @@ that contains no bindings, or NULL if insufficient memory is available.*/
      
      
  /*----------------------------------------------*/
- static void expansion(SymTable oSymTable)    
+ static void expansion(SymTable_T oSymTable)    
  {
-            /*the expansion sizes as described by the assignment*/
+
+    
+        /*variables for expansion*/
+        size_t proc=0;
+        size_t i =0;
+        struct Node *rehash;
+        struct Node* hold;
+        size_t newbin;
+        struct Node** oldHash;
+        
+        /*the expansion sizes as described by the assignment*/
        size_t EXP1 = 509;
        size_t EXP2 = 1021;
        size_t EXP3= 2039;
@@ -179,6 +181,9 @@ that contains no bindings, or NULL if insufficient memory is available.*/
        size_t EXP6 =16381;
        size_t EXP7 =32749;
        size_t EXP8 =65521;
+
+        
+        assert(oSymTable!= NULL);
         /*----------------EXPANSION-------------*/
 
             /*set the new number of buckets*/
