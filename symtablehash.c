@@ -308,7 +308,7 @@ That is, the function must call (*pfApply)(pcKey, pvValue, pvExtra)
                 current = current->next;
             }
             i++;
-            current = current[i];
+            current = oSymTable->hash[i];
         }
         
      }
