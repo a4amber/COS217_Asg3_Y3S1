@@ -126,6 +126,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         struct Node *rehash;
         struct Node* hold;
         size_t newbin;
+        struct Node** oldHash;
 
         assert(pcKey != NULL);
         assert(oSymTable!= NULL);
@@ -173,30 +174,31 @@ that contains no bindings, or NULL if insufficient memory is available.*/
                 oSymTable->buckets =65521;
         
             /*rehash all the keys (takes ~n time)*/
-            rehash = oSymTable->hash[i];
+            oldHash = oSymTable->hash;
+            oSymTable->hash = (struct Node**) calloc(symtab->buckets,sizeof(struct Node*));
+
+            rehash = oldHash[i];
             while (proc < oSymTable->length)
             {
                 while(rehash != NULL)
                 {
                     newbin = SymTable_hash(rehash->key, oSymTable->buckets);
-                    if(newbin != i)
-                    {
-                    oSymTable->hash[i] = rehash->next;
                     if(oSymTable->hash[newbin] == NULL)
+                    {
                         oSymTable->hash[newbin] = rehash;
+                    }
                     else
                     {
                         hold = oSymTable->hash[newbin];
                         oSymTable->hash[newbin] = rehash;
                         rehash->next = hold;
                     }
-                    proc++;
                     rehash = rehash->next;
-                    }
+                    proc++;
                 }
                 
                 i++;
-                rehash = oSymTable->hash[i];
+                rehash = oldHash[i];
 
             }
         }
