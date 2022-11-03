@@ -121,8 +121,8 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         size_t bin;
 
         /*variables for expansion*/
-        size_t proc;
-        size_t i;
+        size_t proc=0;
+        size_t i =0;
         struct Node *rehash;
         struct Node* hold;
         size_t newbin;
@@ -154,7 +154,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         }
         oSymTable->hash[bin] = newNode;
         oSymTable->length++;
-        return 1;
+        
 
         if(oSymTable->length > oSymTable->buckets && oSymTable->buckets != 65521)
         {
@@ -194,6 +194,8 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         }
 
         }
+
+        return 1;
      }
      
 /*----------------------------------------------*/
