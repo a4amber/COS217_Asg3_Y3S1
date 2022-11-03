@@ -176,7 +176,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
             rehash = oSymTable->hash[i];
             while (proc < oSymTable->length)
             {
-                while(oSymTable->hash[i] != NULL)
+                while(rehash != NULL)
                 {
                     newbin = SymTable_hash(rehash->key, oSymTable->buckets);
                     if(newbin != i)
