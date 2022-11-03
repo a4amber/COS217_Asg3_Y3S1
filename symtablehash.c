@@ -129,6 +129,15 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         size_t newbin;
         struct Node** oldHash;
 
+        int EXP1 = 509;
+        int EXP2 = 1021;
+        int EXP3= 2039;
+        int EXP4 =4093;
+        int EXP5 =8191;
+        int EXP6 =16381;
+        int EXP7 =32749;
+        int EXP8 =65521;
+
         assert(pcKey != NULL);
         assert(oSymTable!= NULL);
         
@@ -158,21 +167,23 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         oSymTable->length++;
         
         /*----------------EXPANSION-------------*/
-        if(oSymTable->length > oSymTable->buckets && oSymTable->buckets != 65521)
+        if(oSymTable->length > oSymTable->buckets && oSymTable->buckets != EXP8)
         {
             /*set the new number of buckets*/
-            if(oSymTable->buckets == 509)
-                oSymTable->buckets = 1021;
-            else if(oSymTable->buckets == 1021)
-                oSymTable->buckets =2039;
-            else if(oSymTable->buckets == 2039)
-                oSymTable->buckets =4039;
-            else if(oSymTable->buckets == 4039)
-                oSymTable->buckets =8191;
-            else if(oSymTable->buckets == 8191)
-                oSymTable->buckets=32729;
-            else if(oSymTable->buckets == 32729)
-                oSymTable->buckets =65521;
+            if(oSymTable->buckets == EXP1)
+                oSymTable->buckets = EXP2;
+            else if(oSymTable->buckets == EXP2)
+                oSymTable->buckets =EXP3;
+            else if(oSymTable->buckets == EXP3)
+                oSymTable->buckets =EXP4;
+            else if(oSymTable->buckets == EXP4)
+                oSymTable->buckets =EXP5;
+            else if(oSymTable->buckets == EXP5)
+                oSymTable->buckets=EXP6;
+            else if(oSymTable->buckets == EXP6)
+                oSymTable->buckets =EXP7;
+            else if(oSymTable->buckets == EXP7)
+                oSymTable->buckets =EXP8;                
         
             /*rehash all the keys (takes ~n time)*/
             oldHash = oSymTable->hash;
