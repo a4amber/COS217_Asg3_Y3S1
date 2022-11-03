@@ -77,8 +77,8 @@ that contains no bindings, or NULL if insufficient memory is available.*/
     /*free front to back key by node*/
   while (oSymTable->length > 0)
   {
-  while(oSymTable->table[i] != NULL){
-    toFree = hash[i];
+  while(oSymTable->hash[i] != NULL){
+    toFree =oSymTable->hash[i];
     oSymTable->hash[i] =oSymTable->hash[i]->next;
     free(toFree->key);
     free(toFree);
