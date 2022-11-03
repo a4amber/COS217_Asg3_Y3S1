@@ -129,14 +129,14 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         size_t newbin;
         struct Node** oldHash;
 
-        int EXP1 = 509;
-        int EXP2 = 1021;
-        int EXP3= 2039;
-        int EXP4 =4093;
-        int EXP5 =8191;
-        int EXP6 =16381;
-        int EXP7 =32749;
-        int EXP8 =65521;
+       size_t EXP1 = 509;
+       size_t EXP2 = 1021;
+       size_t EXP3= 2039;
+       size_t EXP4 =4093;
+       size_t EXP5 =8191;
+       size_t EXP6 =16381;
+       size_t EXP7 =32749;
+       size_t EXP8 =65521;
 
         assert(pcKey != NULL);
         assert(oSymTable!= NULL);
