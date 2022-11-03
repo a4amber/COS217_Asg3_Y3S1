@@ -120,6 +120,13 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         struct Node* temp;
         size_t bin;
 
+        /*variables for expansion*/
+        size_t proc;
+        size_t i;
+        struct Node *rehash;
+        struct Node* temp;
+        size_t newbin;
+
         assert(pcKey != NULL);
         assert(oSymTable!= NULL);
         
@@ -149,8 +156,44 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         oSymTable->length++;
         return 1;
 
-     }
+        if(oSymTable->length > oSymTable->buckets && oSymTable->buckets != 65521)
+        {
+            if(oSymTable->buckets == 509)
+                oSymTable->buckets ==1021;
+            else if(oSymTable->buckets == 1021)
+                oSymTable->buckets ==2039;
+            else if(oSymTable->buckets == 2039)
+                oSymTable->buckets ==4039;
+            else if(oSymTable->buckets == 4039)
+                oSymTable->buckets ==8191;
+            else if(oSymTable->buckets == 8191)
+                oSymTable->buckets ==32729;
+            else if(oSymTable->buckets == 32729)
+                oSymTable->buckets ==65521;
 
+
+        }
+
+        rehash = oSymTable->hash[i];
+        while (proc < oSymTable->length){
+            while(rehash != NULL)
+            {
+                oSymTable->hash[i] = rehash->next
+                newbin = SymTable_hash(rehash->key, oSymTable->buckets);
+                if(oSymTable->hash[newbin] == NULL)
+                    oSymTable->hash[newbin] = rehash;
+                else
+                {
+                    temp = oSymTable->hash[newbin];
+                    oSymTable->hash[newbin] = rehash;
+                    rehash->next = temp;
+                }
+                proc++;
+                rehash = rehash->next;
+            }
+            i++;
+            rehash = oSymTable->hash[i];
+        }
 /*----------------------------------------------*/
 
 /*If oSymTable contains a binding with key pcKey, 
