@@ -93,6 +93,12 @@ disagreement after each warning. If there are no warnings, then write
 "None."
 
 
+symtablehash.c:335:9: Variable prior used before definition
+  An rvalue is used that may not be initialized to a value on some execution
+  path. (Use -usedef to inhibit warning)
+
+
+                The variable prior keeps track of the node before the current key in the linked list attached to the relevant bin of the hash table. Setting prior->next = current->next allows current to be removed and the nodes before and after are connected. If the first element is the one that needs to be removed prior need not be initialized. The warning is thrown because prior is initialized in a while loop that will not be entered if current is the first element. However, this is the desired logic as explained above and an if statement ensures that current will not be used if not initialized.
 
 ------------------------------------------------------------------------
 What warnings does critTer generate on symtablehash.c, and what are your
@@ -100,6 +106,66 @@ disagreements with them? Copy the critTer warnings here, and express
 your disagreement after each warning. If there are no warnings, then
 write "None."
 
+
+   symtablehash.c: line 117: medium priority:
+   Do you want to validate 'pvValue' through an assert?
+        No. Client provides value and is allowed to be null
+
+   symtablehash.c: line 224: medium priority:
+   Do you want to validate 'pvValue' through an assert?
+        No. Client provides value and is allowed to be null
+
+   symtablehash.c: line 356: medium priority:
+   Do you want to validate 'pvExtra' through an assert?
+        No. Client provides value and is allowed to be null
+
+   symtablehash.c: line 117: low priority:
+   This function definition probably needs more local comments
+
+   symtablehash.c: line 62: high priority:
+   Use of magic number (509), which should be given a meaningful name
+
+   symtablehash.c: line 161: high priority:
+   Use of magic number (65521), which should be given a meaningful name
+
+   symtablehash.c: line 174: high priority:
+   Use of magic number (509), which should be given a meaningful name
+
+   symtablehash.c: line 174: high priority:
+   Use of magic number (1021), which should be given a meaningful name
+
+   symtablehash.c: line 174: high priority:
+   Use of magic number (1021), which should be given a meaningful name
+
+   symtablehash.c: line 174: high priority:
+   Use of magic number (2039), which should be given a meaningful name
+
+   symtablehash.c: line 174: high priority:
+   Use of magic number (2039), which should be given a meaningful name
+
+   symtablehash.c: line 174: high priority:
+   Use of magic number (4039), which should be given a meaningful name
+
+   symtablehash.c: line 174: high priority:
+   Use of magic number (4039), which should be given a meaningful name
+
+   symtablehash.c: line 174: high priority:
+   Use of magic number (8191), which should be given a meaningful name
+
+   symtablehash.c: line 174: high priority:
+   Use of magic number (8191), which should be given a meaningful name
+
+   symtablehash.c: line 174: high priority:
+   Use of magic number (32729), which should be given a meaningful name
+
+   symtablehash.c: line 174: high priority:
+   Use of magic number (32729), which should be given a meaningful name
+
+   symtablehash.c: line 174: high priority:
+   Use of magic number (65521), which should be given a meaningful name
+
+   symtablehash.c: line 193: low priority:
+   This area is deeply nested at level 4, consider refactoring
 
 
 ------------------------------------------------------------------------
