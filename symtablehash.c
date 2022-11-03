@@ -195,6 +195,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
                     }
                     rehash = rehash->next;
                     proc++;
+                    printf(stderr, "we have moved %zu elements\n", proc);
                 }
                 
                 i++;
