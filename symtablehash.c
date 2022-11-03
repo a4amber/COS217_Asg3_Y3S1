@@ -124,7 +124,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         size_t proc;
         size_t i;
         struct Node *rehash;
-        struct Node* temp;
+        struct Node* hold;
         size_t newbin;
 
         assert(pcKey != NULL);
@@ -182,9 +182,9 @@ that contains no bindings, or NULL if insufficient memory is available.*/
                     oSymTable->hash[newbin] = rehash;
                 else
                 {
-                    temp = oSymTable->hash[newbin];
+                    hold = oSymTable->hash[newbin];
                     oSymTable->hash[newbin] = rehash;
-                    rehash->next = temp;
+                    rehash->next = hold;
                 }
                 proc++;
                 rehash = rehash->next;
