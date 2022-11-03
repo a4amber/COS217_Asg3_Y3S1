@@ -160,7 +160,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         {
             if(oSymTable->buckets == 509)
                 oSymTable->buckets = 1021;
-            else if(oSymTable->buckets = 1021)
+            else if(oSymTable->buckets == 1021)
                 oSymTable->buckets =2039;
             else if(oSymTable->buckets == 2039)
                 oSymTable->buckets =4039;
