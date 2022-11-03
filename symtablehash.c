@@ -85,6 +85,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
     oSymTable->hash[i] = toFree->next;
     free(toFree->key);
     free(toFree);
+    oSymTable-> length--;
   } 
   i++;
   }
