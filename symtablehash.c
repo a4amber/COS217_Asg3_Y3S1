@@ -155,9 +155,10 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         oSymTable->hash[bin] = newNode;
         oSymTable->length++;
         
-
+        /*----------------EXPANSION-------------*/
         if(oSymTable->length > oSymTable->buckets && oSymTable->buckets != 65521)
         {
+            /*set the new number of buckets*/
             if(oSymTable->buckets == 509)
                 oSymTable->buckets = 1021;
             else if(oSymTable->buckets == 1021)
@@ -171,32 +172,39 @@ that contains no bindings, or NULL if insufficient memory is available.*/
             else if(oSymTable->buckets == 32729)
                 oSymTable->buckets =65521;
         
-        /*rehash all the keys (takes ~n time)*/
-        rehash = oSymTable->hash[i];
-        while (proc < oSymTable->length){
-            while(rehash != NULL)
-            {
-                oSymTable->hash[i] = rehash->next;
-                newbin = SymTable_hash(rehash->key, oSymTable->buckets);
-                if(oSymTable->hash[newbin] == NULL)
-                    oSymTable->hash[newbin] = rehash;
-                else
-                {
-                    hold = oSymTable->hash[newbin];
-                    oSymTable->hash[newbin] = rehash;
-                    rehash->next = hold;
-                }
-                proc++;
-                rehash = rehash->next;
-            }
-            i++;
+            /*rehash all the keys (takes ~n time)*/
             rehash = oSymTable->hash[i];
-        }
+            while (proc < oSymTable->length)
+            {
+                while(oSymTable->hash[i] != NULL)
+                {
+                    newbin = SymTable_hash(rehash->key, oSymTable->buckets);
+                    if(newbin != i)
+                    {
+                    oSymTable->hash[i] = rehash->next
+                    if(oSymTable->hash[newbin] == NULL)
+                        oSymTable->hash[newbin] = rehash;
+                    else
+                    {
+                        hold = oSymTable->hash[newbin];
+                        oSymTable->hash[newbin] = rehash;
+                        rehash->next = hold;
+                    }
+                    proc++;
+                    rehash = rehash->next;
+                    }
+                }
+                
+                i++;
+                rehash = oSymTable->hash[i];
 
+            }
         }
 
         return 1;
+     
      }
+     
      
 /*----------------------------------------------*/
 
