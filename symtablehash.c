@@ -128,16 +128,6 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         size_t newbin;
         struct Node** oldHash;
 
-        /*the expansion sizes as described by the assignment*/
-       size_t EXP1 = 509;
-       size_t EXP2 = 1021;
-       size_t EXP3= 2039;
-       size_t EXP4 =4093;
-       size_t EXP5 =8191;
-       size_t EXP6 =16381;
-       size_t EXP7 =32749;
-       size_t EXP8 =65521;
-
         assert(pcKey != NULL);
         assert(oSymTable!= NULL);
         
@@ -167,9 +157,30 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         oSymTable->hash[bin] = newNode;
         oSymTable->length++;
         
-        /*----------------EXPANSION-------------*/
         if(oSymTable->length > oSymTable->buckets && oSymTable->buckets != EXP8)
         {
+            expansion(oSymTable);
+        }
+
+        return 1;
+     
+     }
+     
+     
+ /*----------------------------------------------*/
+ static void expansion(SymTable oSymTable)    
+ {
+            /*the expansion sizes as described by the assignment*/
+       size_t EXP1 = 509;
+       size_t EXP2 = 1021;
+       size_t EXP3= 2039;
+       size_t EXP4 =4093;
+       size_t EXP5 =8191;
+       size_t EXP6 =16381;
+       size_t EXP7 =32749;
+       size_t EXP8 =65521;
+        /*----------------EXPANSION-------------*/
+
             /*set the new number of buckets*/
             if(oSymTable->buckets == EXP1)
                 oSymTable->buckets = EXP2;
@@ -216,15 +227,10 @@ that contains no bindings, or NULL if insufficient memory is available.*/
                 i++;
                 rehash = oldHash[i];
 
-            }
+            
             free(oldHash);
         }
-        /*----------------EXPANSION ENDED-------------*/
-        return 1;
-     
-     }
-     
-     
+ }
 /*----------------------------------------------*/
 
 /*If oSymTable contains a binding with key pcKey, 
