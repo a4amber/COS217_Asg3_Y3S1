@@ -167,59 +167,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         oSymTable->hash[bin] = newNode;
         oSymTable->length++;
         
-        /*----------------EXPANSION-------------*/
-        if(oSymTable->length > oSymTable->buckets && oSymTable->buckets != EXP8)
-        {
-            /*set the new number of buckets*/
-            if(oSymTable->buckets == EXP1)
-                oSymTable->buckets = EXP2;
-            else if(oSymTable->buckets == EXP2)
-                oSymTable->buckets =EXP3;
-            else if(oSymTable->buckets == EXP3)
-                oSymTable->buckets =EXP4;
-            else if(oSymTable->buckets == EXP4)
-                oSymTable->buckets =EXP5;
-            else if(oSymTable->buckets == EXP5)
-                oSymTable->buckets=EXP6;
-            else if(oSymTable->buckets == EXP6)
-                oSymTable->buckets =EXP7;
-            else if(oSymTable->buckets == EXP7)
-                oSymTable->buckets =EXP8;                
-        
-            /*rehash all the keys (takes ~n time)*/
-            oldHash = oSymTable->hash;
-            oSymTable->hash = (struct Node**) calloc(oSymTable->buckets,sizeof(struct Node*));
-            if(oSymTable->hash == NULL) return 0;
-
-            rehash = oldHash[i];
-            while (proc < oSymTable->length)
-            {
-                while(rehash != NULL)
-                {
-                    /*take out the old nodes and put them into the new hash table top to bottom*/
-                    oldHash[i] = rehash->next;
-                    rehash->next = NULL;
-                    newbin = SymTable_hash(rehash->key, oSymTable->buckets);
-                    if(oSymTable->hash[newbin] == NULL)
-                    {
-                        oSymTable->hash[newbin] = rehash;
-                    }
-                    else
-                    {
-                        hold = oSymTable->hash[newbin];
-                        oSymTable->hash[newbin] = rehash;
-                        rehash->next = hold;
-                    }
-                    rehash = oldHash[i];
-                    proc++;
-                }
-                i++;
-                rehash = oldHash[i];
-
-            }
-            free(oldHash);
-        }
-        /*----------------EXPANSION ENDED-------------*/
+       
         return 1;
      
      }
