@@ -80,7 +80,6 @@ that contains no bindings, or NULL if insufficient memory is available.*/
   {
   while(oSymTable->hash[i] != NULL){
     toFree =oSymTable->hash[i];
-    fprintf(stderr,"this is the Node with key: %s \n", toFree->key);
     oSymTable->hash[i] = toFree->next;
     free(toFree->key);
     free(toFree);
