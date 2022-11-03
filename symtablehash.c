@@ -151,7 +151,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
         
         if(oSymTable->length > oSymTable->buckets && oSymTable->buckets != EXP8)
         {
-            expansion(oSymTable);
+            if(!expansion(oSymTable)) return 0;
         }
 
         return 1;
@@ -160,7 +160,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
      
      
  /*----------------------------------------------*/
- static void expansion(SymTable_T oSymTable)    
+ static int expansion(SymTable_T oSymTable)    
  {
 
     
@@ -235,6 +235,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
             
             free(oldHash);
         }
+        return 1;
  }
 /*----------------------------------------------*/
 
