@@ -176,7 +176,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
             /*rehash all the keys (takes ~n time)*/
             oldHash = oSymTable->hash;
             oSymTable->hash = (struct Node**) calloc(oSymTable->buckets,sizeof(struct Node*));
-
+            if(oSymTable->hash == NULL) return 0;
             rehash = oldHash[i];
             while (proc < oSymTable->length)
             {
