@@ -196,6 +196,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
                     rehash = rehash->next;
                     proc++;
                     fprintf(stderr, "we have moved %lu / %lu elements\n", proc, oSymTable->length);
+                    fprintf(stderr, "This is %s \n", rehash->key);
                 }
                 
                 i++;
