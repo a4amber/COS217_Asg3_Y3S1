@@ -197,8 +197,7 @@ that contains no bindings, or NULL if insufficient memory is available.*/
                     }
                     rehash = oldHash[i];
                     proc++;
-                    fprintf(stderr, "we have moved %lu / %lu elements\n", proc, oSymTable->length);
-
+                    
                 }
                 
                 i++;
