@@ -13,5 +13,5 @@ testsymtablelist:  symtablelist.o  testsymtable.o
 symtablelist.o: symtablelist.c symtable.h
 	gcc217 -c symtablelist.c
 
-testsymtable.o: testsymtable.c symtable.h
+testsymtable.o: testsymtable.c 
 	gcc217 -c testsymtable.c
