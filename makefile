@@ -1,14 +1,17 @@
 all: testsymtablelist testsymtablehash
 	gcc217 testsymtablelist testsymtablehash -o all
 
-testsymtablehash:  symtablehash.o  testsymtable.o
+testsymtablehash:  symtablehash.o  testsymtable.o symtable.h
 	gcc217 symtablehash.o testsymtable.o -o testsymtablehash
 
-testsymtablehash.o: testsymtable.c symtablehash.c symtable.h
-	gcc217 -c testsymtable.c symtablehash.c
+symtablehash.o:  symtablehash.c
+	gcc217 -c symtablehash.c
 
-testsymtablelist:  symtablelist.o  testsymtable.o
+testsymtablelist:  symtablelist.o  testsymtable.o symtable.h
 	gcc217 symtablelist.o testsymtable.o -o testsymtablelist
 
-testsymtablelist.o: testsymtable.c symtablehash.c symtable.h
-	gcc217 -c testsymtable.c symtablelist.c
+symtablelist.o: symtablelist.c 
+	gcc217 -c symtablelist.c
+
+testsymtable.o: testsymtable.c
+	gcc217 -c testsymtable.c
